@@ -8,9 +8,10 @@ from datalist import val_list
 device = torch.device(
     'mps' if torch.backends.mps.is_available() else 'cpu'
 )
-path = '/Users/phanhuynhtuankhanh/Downloads/Downloads/5b582031-af19-4cc3-bf11-0bdf1fba180f.png'
-path1 = val_list[0]
-img = Image.open(path1).convert('RGB')
+path = random.choice(val_list)
+print(path)
+img = Image.open(path).convert('RGB')
+img.show()
 img_transform = ImageTransform(resize,mean,std)
 img = img_transform(img,phase = 'val')
 img = img.unsqueeze(0).to(device)
