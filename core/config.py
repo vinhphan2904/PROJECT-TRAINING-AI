@@ -1,4 +1,4 @@
 from lib import *
 
-BATCH_SIZE = 32
+BATCH_SIZE = 64
 LEARNING_RATE = 0.005
