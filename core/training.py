@@ -36,7 +36,7 @@ def training(model,dataloader_dict,optimizer,loss_ln,device,best_acc,start_epoch
                 epoch_corrects += torch.sum(pred == labels)
             epoch_loss = epoch_loss / len(dataloader_dict[phase].dataset)
             epoch_acc = epoch_corrects.float() / len(dataloader_dict[phase].dataset)
-            print(f'{phase} Loss : {epoch_loss:.4f} Acc : {epoch_acc:.4f}')
+            print(f'{epoch} {phase} Loss : {epoch_loss:.4f} Acc : {epoch_acc:.4f}')
 
             if phase == 'val':
                 if epoch_acc > best_acc:
