@@ -1,20 +1,19 @@
-import torch
-import time
+from lib import *
+from core import device
+from imagetransform import ImageTransform
+from normalize import *
 from cnn import MyCNN
-device = torch.device("mps")
-
-model = MyCNN().to(device)
-
-for bs in [16, 32, 64, 128]:
-    try:
-        x = torch.randn(bs, 3, 128, 128).to(device)
-
-        start = time.time()
-        y = model(x)
-        torch.mps.synchronize()  # rất quan trọng cho Mac
-        end = time.time()
-
-        print(f"batch_size={bs} OK, time={end-start:.4f}s")
-
-    except Exception as e:
-        print(f"batch_size={bs} FAIL → {e}")
+from mapping import label_to_idx
+with torch.no_grad():
+    path = '/Users/phanhuynhtuankhanh/Downloads/Downloads/5b582031-af19-4cc3-bf11-0bdf1fba180f.png'
+    img = Image.open(path).convert('RGB')
+    img_transform = ImageTransform(resize,mean,std)
+    img = img_transform(img,phase = 'val')
+    img = img.unsquezze(0).to(device)
+    model = MyCNN()
+    output = model(img)
+    prob = torch.softmax(output,dim = 1)
+    _,pred = torch.max(output,dim = 1)
+    print(label_to_idx[pred.item()])
+    img.show()
+    print(prob)

@@ -7,7 +7,7 @@ from config import *
 def training(model,dataloader_dict,optimizer,loss_ln,device,best_acc,start_epoch = None,num_epochs = None):
     model = model.to(device)
     best_acc = best_acc
-    for epoch in range(start_epoch,num_epochs + 1):
+    for epoch in range(start_epoch,num_epochs):
         for phase in ['train','val']:
             if phase == 'train':
                 model.train()

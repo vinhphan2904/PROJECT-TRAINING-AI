@@ -33,4 +33,6 @@ if __name__ == '__main__':
     num_epoch = int(input()) + start_epoch
 
     training(model,dataloader_dict,optimizer,loss_ln,device,best_acc,start_epoch,num_epoch)
+    checkpoint = torch.load("best_checkpoint.pth",map_location = device)
+    best_acc = checkpoint['best_acc']
     print(best_acc)

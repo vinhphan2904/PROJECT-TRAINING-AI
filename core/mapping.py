@@ -11,6 +11,7 @@ for list in glob.glob(path,recursive=True):
     img = os.path.basename(os.path.dirname(list))
     disease.add(img)
 
+print(disease)
 disease = sorted(disease)
 for idx,label in enumerate(disease):
     idx_to_label[idx] = label
