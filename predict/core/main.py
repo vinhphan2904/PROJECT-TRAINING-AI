@@ -1,5 +1,5 @@
-from .lib import *
-from .camera import ESP32CAMERA
+from lib import *
+from camera import ESP32CAMERA
 
 camera = ESP32CAMERA("192.168.1.38")
 cnt = 1

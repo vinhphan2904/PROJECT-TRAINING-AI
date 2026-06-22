@@ -1,4 +1,4 @@
-from .lib import *
+from lib import *
 
 class ESP32CAMERA:
     def __init__(self,ip):
