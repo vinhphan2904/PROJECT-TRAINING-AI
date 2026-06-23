@@ -17,9 +17,11 @@ model = MyCNN().to(device)
 model.load_state_dict(checkpoint['model_state_dict'])
 model.eval()
 transform_img = ImageTransform(resize,mean,std)
+path = 'predict/data'
+new_path = 'real_data'
+json_path = 'core/data.json'
 while True:
     if has_image():
-        path = 'predict/data'
         file = sorted(os.listdir(path))
         file_name = file[0]
         time_date = datetime.now().strftime("%Y-%m-%d %H:%M:%S")
@@ -40,19 +42,27 @@ while True:
         print(time_date)
         print("YES")
         if state_health != 'Healthy' and confidence > 0.8:
-            data = [
-                {
+            shutil.copy(img_path,new_path)
+            if os.path.exists(json_path):
+                with open(json_path,'r') as f:
+                    try:
+                        old_data = json.load(f)
+                    except Exception as e:
+                        old_data = []
+                        print(e)
+            else: 
+                old_data = []
+            data = {
                     'Time' : time_date,
                     'State_health': state_health,
                     'Confidence': confidence,
                     'Location_img' : img_path
                 }
-            ]
-            with open('core/data.json','a') as f:
-                json.dump(data,f)
-        else:
-            os.remove(os.path.join(path,file_name))
-        time.sleep(2)
+            old_data.append(data)
+            with open(json_path,'w') as f:
+                json.dump(old_data,f,indent = 4)
+        os.remove(os.path.join(path,file_name))
     else:
         print("Wait loading img")
+    time.sleep(5)
 print("END")
