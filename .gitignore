@@ -4,3 +4,6 @@ core/__pycache__
 predict/core/__pycache__
 predict/data
 real_data
+yolo/Lettuce Disease Detection.v4i.yolov8
+yolo/runs
+yolo/yolov8n.pt

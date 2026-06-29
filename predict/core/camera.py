@@ -6,7 +6,7 @@ class ESP32CAMERA:
 
     def capture(self):
         try:
-            respond = requests.get(self.url,timeout=5)
+            respond = requests.get(self.url)
 
             if respond.status_code != 200:
                 print("HTTP error",respond.status_code)

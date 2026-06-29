@@ -1,7 +1,7 @@
 from lib import *
 from camera import ESP32CAMERA
 
-camera = ESP32CAMERA("192.168.1.38")
+camera = ESP32CAMERA("192.168.1.41")
 cnt = 1
 
 while True:
@@ -13,7 +13,7 @@ while True:
     filename = f'predict/data/{time_now}.jpg'
     img.save(filename)
     cv2.imshow("ESP32 Camera",frame)
-    if cv2.waitKey(5000) & 0xFF == ord('q'):
+    if cv2.waitKey(50000) & 0xFF == ord('q'):
         break
     cnt += 1
 cv2.destroyAllWindows()
