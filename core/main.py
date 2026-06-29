@@ -17,7 +17,7 @@ model = MyCNN().to(device)
 model.load_state_dict(checkpoint['model_state_dict'])
 model.eval()
 transform_img = ImageTransform(resize,mean,std)
-path = 'predict/data'
+path = 'yolo/data'
 new_path = 'real_data'
 json_path = 'core/data.json'
 while True:

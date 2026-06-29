@@ -1,12 +1,9 @@
-import cv2
-import numpy as np
-import requests
-from ultralytics import YOLO
-import time
+from lib import *
 
-model = YOLO("runs/detect/train/weights/best.pt")
+model = YOLO("yolo/runs/detect/train/weights/best.pt")
 
-url = "http://192.168.1.22/capture"  # đổi IP ESP32
+url = "http://192.168.1.22/capture"  
+
 
 def white_balance(img):
     img = img.astype(np.float32)
@@ -57,7 +54,7 @@ def sharpen(img):
     return cv2.filter2D(img,-1,kernel)
 
 while True:
-
+    time_date = datetime.now().strftime("%Y-%m-%d %H:%M:%S")
     response = requests.get(url)
 
     img_array = np.frombuffer(response.content, np.uint8)
@@ -93,11 +90,11 @@ while True:
             # Crop ROI
             roi = frame[y1:y2, x1:x2]
 
-            if roi.size != 0:
-
-                roi = cv2.resize(roi, (224,224))
-
+            if roi.size != 0 and model.names[cls] != None:
+                filename = f'yolo/data/{time_date}.jpg'
+                cv2.imwrite(filename,roi)
                 cv2.imshow("ROI", roi)
+                
 
             # Vẽ bounding box
             cv2.rectangle(
@@ -119,8 +116,8 @@ while True:
             )
 
     cv2.imshow("YOLO", img_show)
-    time.sleep(1)
-    if cv2.waitKey(1) == 27:
+    time.sleep(5)
+    if cv2.waitKey(1) & 0xFF == 27:
         break
 
 cv2.destroyAllWindows()
