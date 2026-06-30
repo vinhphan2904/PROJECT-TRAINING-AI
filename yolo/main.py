@@ -65,9 +65,9 @@ while True:
         continue
 
 
-    frame = white_balance(frame)
-    frame = clahe(frame)
-    frame = sharpen(frame)
+    # frame = white_balance(frame)
+    # frame = clahe(frame)
+    # frame = sharpen(frame)
 
     results = model.predict(
         frame,
@@ -116,7 +116,7 @@ while True:
             )
 
     cv2.imshow("YOLO", img_show)
-    time.sleep(5)
+    time.sleep(2)
     if cv2.waitKey(1) & 0xFF == 27:
         break
 

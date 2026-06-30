@@ -6,7 +6,7 @@ from mapping import label_to_idx,idx_to_label
 from datalist import val_list
 
 def has_image():
-    return len(os.listdir('predict/data')) > 0
+    return len(os.listdir('yolo/data')) > 0
 
 device = torch.device(
     'mps' if torch.backends.mps.is_available() else 'cpu'
@@ -64,5 +64,5 @@ while True:
         os.remove(os.path.join(path,file_name))
     else:
         print("Wait loading img")
-    time.sleep(5)
+    time.sleep(2)
 print("END")
